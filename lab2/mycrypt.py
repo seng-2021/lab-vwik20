@@ -9,10 +9,14 @@ def encode(s):
     if len(s) > 1000:
         raise ValueError
     for c in s:
-        if c.isalpha():
+        if c in error:
+            raise ValueError
+        elif c.isalpha():
             if c.islower():
                 c=c.upper()
             # Rot13 the character for maximum security
+            elif c.isupper():
+                c=c.lower()
             crypted+=codecs.encode(c,'rot13')
         elif c in digitmapping:
           crypted+=digitmapping[c]
